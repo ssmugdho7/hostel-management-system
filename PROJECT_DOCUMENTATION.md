@@ -450,11 +450,3 @@ The customer `rahim@hostel.test` has 2 demo items already submitted so you can s
 
 ---
 
-## 11. Known Limitations / Future Work
-
-- **Notification polling is not yet wired up.** Every page fetches notifications once on mount. The "real-time preferred" requirement is partially met (the backend scheduled job creates new notifications automatically); only the frontend auto-refresh is pending. The fix is a single `useNotificationPolling` hook that hits `/api/notifications` every ~30 s and is mounted once in the app shell.
-- **Admin panel has API only**, no UI. The admin endpoints exist so the approve/reject flow is testable with `curl`/Postman. A proper admin SPA can be built later from the same `frontend/` folder.
-- **Business logic lives inside controllers** (per the original brief) — no `FormRequest`, `Resource`, or `Service` classes. When the codebase grows, extracting a `BillingService` will reduce duplication between `SeatChangeController`, `ExitController`, and `AdminExitController`.
-- **No payment-gateway integration.** The "Pay rent" form records a payment as `paid` immediately; in production this would be triggered by a bKash / Nagad / Stripe webhook.
-
----
