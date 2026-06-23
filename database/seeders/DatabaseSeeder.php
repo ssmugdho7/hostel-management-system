@@ -94,6 +94,7 @@ class DatabaseSeeder extends Seeder
             'reason' => 'initial',
         ]);
 
+        
         Allocation::create([
             'user_id' => $customer2->id,
             'seat_id' => $seatA1b->id,

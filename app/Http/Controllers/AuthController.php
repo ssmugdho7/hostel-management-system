@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Notification;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\ValidationException;
 
@@ -57,6 +58,7 @@ class AuthController extends Controller
             ]);
         }
 
+        Auth::login($user);
         $request->session()->regenerate();
 
         return response()->json([
@@ -67,6 +69,7 @@ class AuthController extends Controller
 
     public function logout(Request $request)
     {
+        Auth::guard('web')->logout();
         $request->session()->invalidate();
         $request->session()->regenerateToken();
 
@@ -78,6 +81,5 @@ class AuthController extends Controller
         return response()->json($request->user()->load('currentSeat.room.branch'));
     }
 }
-
 
 
